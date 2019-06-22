@@ -1,0 +1,92 @@
+{
+    "manifestVersion": 1,
+    "id": "alcide-kubernetes-advisor",
+    "publisher": "Alcide",
+    "version": "1.1.1",
+    "name": "Alcide Kubernetes Advisor",
+    "description": "A Kubernetes Security & Hygiene Scanner for CI+CD pipleines",
+    "public": false,
+    "categories": ["Azure Pipelines"],
+    "tags": [
+        "security","kubernetes", "alcide", "advisor", "vulnerability", "scan"
+    ],
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],
+
+    "contributions": [
+        {
+            "id": "alcide-dashboard-endpoint-type",
+            "description": "Alcide Management API URL",
+            "type": "ms.vss-endpoint.service-endpoint-type",
+            "targets": [
+                "ms.vss-endpoint.endpoint-types"
+            ],
+            "properties": {
+                "name": "alcideConsole",
+                "displayName": "Alcide Login Information",
+                "authenticationSchemes": [
+                    {
+                        "type": "ms.vss-endpoint.endpoint-auth-scheme-basic",
+                        "inputDescriptors": [
+                            {
+                                "id": "username",
+                                "name": "Username",
+                                "description": "Alcide Username",
+                                "inputMode": "textbox",
+                                "isConfidential": false,
+                                "validation": {
+                                    "isRequired": true,
+                                    "dataType": "string"
+                                }
+                            },
+                            {
+                                "id": "password",
+                                "name": "Password",
+                                "description": "Alcide Password",
+                                "inputMode": "passwordbox",
+                                "isConfidential": true,
+                                "validation": {
+                                    "isRequired": true,
+                                    "dataType": "string"
+                                }
+                            },
+                            {
+                                "id": "tlscacert",
+                                "name": "CA Certificate",
+                                "description": "CA Certificate used to verify Alcide Management API Server",
+                                "inputMode": "textarea",
+                                "isConfidential": false,
+                                "validation": {
+                                    "isRequired": false,
+                                    "dataType": "string"
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "helpMarkDown": "<a href=\"https://www.alcide.io\" target=\"_blank\"><b>Learn More</b></a>"
+            }
+        },
+        {
+            "id": "custom-build-release-task",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "tasks/advisor"
+            }
+        }       
+    ],
+    "icons": {
+        "default": "images/alcide-icon.png"
+    },    
+    "files": [
+        {
+            "path": "tasks/advisor"
+        }
+    ]
+}

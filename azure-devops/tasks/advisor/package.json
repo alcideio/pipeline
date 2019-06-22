@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "@types/del": "^2.2.0",
+    "@types/glob": "^5.0.10",
+    "@types/mocha": "^2.2.5",
+    "@types/node": "^6.0.101",
+    "@types/q": "^1.5.0",
+    "azure-pipelines-task-lib": "^2.8.0",
+    "moment": "2.21.0",
+    "vss-web-extension-sdk": "^5.141.0",
+    "vsts-task-tool-lib": "0.10.0",
+    "azure-arm-rest-v2": "file:lib/azure-arm-rest-v2-2.0.0.tgz",
+    "docker-common-v2": "file:lib/docker-common-v2-1.0.0.tgz",
+    "kubernetes-common-v2": "file:lib/kubernetes-common-v2-1.0.0.tgz",
+    "utility-common-v2": "file:lib/utility-common-v2-2.0.0.tgz"
+  }
+}

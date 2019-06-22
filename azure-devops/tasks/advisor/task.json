@@ -1,0 +1,195 @@
+{
+    "id": "5be304e5-f472-47ff-b256-d57d589e649f",
+    "name": "alcide-advisor-scan",
+    "friendlyName": "Alcide Advisor Kubernetes Scan",
+    "description": "Task to scan a Kubernetes Cluster within Azure DevOps deployment pipelines",
+    "helpUrl": "https://www.alcide.io",
+    "helpMarkDown": "[Learn more about this task](https://go.microsoft.com/fwlink/?linkid=851275) or [see the Kubernetes documentation](https://kubernetes.io/docs/home/)",
+    "releaseNotes": "What's new in Version 1.0:<br/>&nbsp;Added new service connection type input for easy selection of Azure AKS cluster.<br/>&nbsp;Replaced output variable input with output variables section that we had added in all tasks.",
+
+    "category": "Security",
+    "visibility": [
+        "Build",
+        "Release"
+    ],
+    "author": "Alcide",
+    "version": {
+        "Major": 1,
+        "Minor": 1,
+        "Patch": 1
+    },
+    "instanceNameFormat": "Alcide Advisor Scan of '$(kubernetesCluster)'",
+    "demands": [],
+    "groups": [
+        {
+            "name": "advisorSettings",
+            "displayName": "Alcide Advisor",
+            "isExpanded": true
+        },
+        {
+            "name": "kubernetesCluster",
+            "displayName": "Kubernetes Cluster",
+            "isExpanded": true
+        }
+    ],
+    "inputs": [
+        {
+            "name": "failOnCritical",
+            "type": "boolean",
+            "label": "Fail On Critical",
+            "defaultValue": "false",
+            "groupName": "advisorSettings",
+            "helpMarkDown": "Fail the task if critical findings observed.",
+            "required": false,
+            "properties": {
+                "EditableOptions": "True"
+            }
+        },        
+        {
+            "name": "advisorScanReport",
+            "type": "filePath",
+            "label": "Scan Report Output",
+            "defaultValue": "$(Pipeline.Workspace)/advisor-report.html",
+            "required": true,
+            "groupName": "advisorSettings",
+            "helpMarkDown": "Alcide Advisor Scan Report output location.",
+            "properties": {
+                "EditableOptions": "True"
+            }
+        },        
+        {
+            "name": "advisorProfile",
+            "type": "filePath",
+            "label": "Scan Profile",
+            "defaultValue": "",
+            "groupName": "advisorSettings",
+            "helpMarkDown": "Alcide Advisor Scan Profile.",
+            "required": false
+        },
+        {
+            "name": "connectionType",
+            "type": "pickList",
+            "label": "Service connection type",
+            "defaultValue": "Azure Resource Manager",
+            "required": true,
+            "options": {
+                "Azure Resource Manager": "Azure Resource Manager",
+                "Kubernetes Service Connection": "Kubernetes Service Connection",
+                "None": "None"
+            },
+            "groupName": "kubernetesCluster",
+            "helpMarkDown": "Select a service connection type."
+        },
+        {
+            "name": "kubernetesServiceEndpoint",
+            "type": "connectedService:kubernetes",
+            "label": "Kubernetes service connection",
+            "visibleRule": "connectionType = Kubernetes Service Connection",
+            "helpMarkDown": "Select a Kubernetes service connection.",
+            "groupName": "kubernetesCluster",
+            "required": true
+        },
+        {
+            "name": "azureSubscriptionEndpoint",
+            "type": "connectedService:AzureRM",
+            "label": "Azure subscription",
+            "helpMarkDown": "Select the Azure Resource Manager subscription, which contains Azure Container Registry.Note: To configure new service connection, select the Azure subscription from the list and click 'Authorize'. If your subscription is not listed or if you want to use an existing Service Principal, you can setup an Azure service connection using 'Add' or 'Manage' button.",
+            "visibleRule": "connectionType = Azure Resource Manager",
+            "defaultValue": "",
+            "groupName": "kubernetesCluster",
+            "required": true
+        },
+        {
+            "name": "azureResourceGroup",
+            "label": "Resource group",
+            "type": "pickList",
+            "helpMarkDown": "Select an Azure resource group.",
+            "visibleRule": "connectionType = Azure Resource Manager",
+            "defaultValue": "",
+            "required": true,
+            "groupName": "kubernetesCluster",
+            "properties": {
+                "EditableOptions": "True"
+            }
+        },
+        {
+            "name": "kubernetesCluster",
+            "label": "Kubernetes cluster",
+            "type": "pickList",
+            "helpMarkDown": "Select an Azure managed cluster.",
+            "visibleRule": "connectionType = Azure Resource Manager",
+            "defaultValue": "",
+            "required": true,
+            "groupName": "kubernetesCluster",
+            "properties": {
+                "EditableOptions": "True"
+            }
+        },
+        {
+            "name": "useClusterAdmin",
+            "type": "boolean",
+            "label": "Use cluster admin credentials",
+            "defaultValue": "true",
+            "visibleRule": "connectionType = Azure Resource Manager",
+            "groupName": "kubernetesCluster",
+            "helpMarkDown": "Use cluster administrator credentials instead of default cluster user credentials."
+        }
+
+    ],
+    "dataSourceBindings": [
+        {
+            "target": "azureContainerRegistry",
+            "endpointId": "$(azureSubscriptionEndpointForSecrets)",
+            "dataSourceName": "AzureRMContainerRegistries",
+            "resultTemplate": "{\"Value\":\"{{{properties.loginServer}}}\",\"DisplayValue\":\"{{{name}}}\"}"
+        },
+        {
+            "target": "kubernetesCluster",
+            "endpointId": "$(azureSubscriptionEndpoint)",
+            "endpointUrl": "{{{endpoint.url}}}/subscriptions/{{{endpoint.subscriptionId}}}/resourceGroups/$(azureResourceGroup)/providers/Microsoft.ContainerService/managedClusters?api-version=2017-08-31",
+            "resultSelector": "jsonpath:$.value[*]",
+            "resultTemplate": "{{{name}}}"
+        },
+        {
+            "target": "azureResourceGroup",
+            "endpointId": "$(azureSubscriptionEndpoint)",
+            "endpointUrl": "{{{endpoint.url}}}/subscriptions/{{{endpoint.subscriptionId}}}/providers/Microsoft.ContainerService/managedClusters?api-version=2017-08-31",
+            "resultSelector": "jsonpath:$.value[*]",
+            "resultTemplate": "{{{ #extractResource id resourcegroups}}}"
+        }
+    ],
+    "execution": {
+        "Node": {
+            "target": "kubernetes.js"
+        }
+    },
+    "messages": {
+        "CantDownloadAccessProfile": "Cannot download access profile/kube config file for the cluster %s. Reason %s.",
+        "DownloadingClient": "Downloading kubernetes client.",
+        "KubernetesClusterResourceGroup": "Kubernetes cluster %s, resource group %s.",
+        "CreatingSecret": "Executing create %s secret.",
+        "DeleteSecret": "Executing delete %s secret",
+        "CreatingConfigMap": "Executing create %s configmap.",
+        "DeleteConfigMap": "Executing delete %s configmap",
+        "ConfigMapExists": "ConfigMap %s already exists",
+        "GetConfigMap": "Executing get %s configmap",
+        "DockerRegistryConnectionNotSpecified": "Docker Registry service connection details not specified",
+        "FileNotFoundException": "Can not find file at location: %s",
+        "DownloadingKubeCtlFromUrl": "Downloading Kubectl from URL: %s",
+        "DownloadPathForStableTxt": "Download path for stable.txt: %s",
+        "DownloadAdvisorFailed": "Can not download the advisor of version %s. Check if the version is correct https://github.com/kubernetes/kubernetes/releases",
+        "DownloadStableVersionFailed": "Can not download kubernetes stable version file from %s. Falling back to %s",
+        "UsingLatestStableVersion": "Invalid version 1.7 specified in Version Spec input. Using latest stable version instead. Check for correct versions https://github.com/kubernetes/kubernetes/releases",
+        "NotAValidVersion": "Not a valid version, the available versions are: %s",
+        "ConfigurationFileNotFound": "No configuration file matching %s was found.",
+        "KubernetesServiceConnectionNotFound": "Kubernetes service connection details not found.",
+        "OutputVariableDataSizeExceeded": "Output variable not set as kubectl command output exceeded the maximum supported length. Output length: %s, Maximum supported length: %s",
+        "InvalidConfiguration": "No Kubernetes configuration found, supply either inline configuration or configuration file path",
+        "CallToolRunnerExec": "Calling Toolrunner exec() method asynchronously to execute the kubectl command and store the returned promise object.",
+        "ReturningToolRunnerExecPromise": "Called Toolrunner exec() method asynchronously. Returning the promise.",
+        "ToolRunnerExecCallFailed": "Toolrunner exec() method returned error for the kubectl command. Error: %s.",
+        "ToolRunnerExecCallSucceeded": "Toolrunner exec() method returned successfully for the kubectl command.",
+        "WritingDockerConfigToTempFile": "Writing Docker config to temp file. File path: %s, Docker config: %s",
+        "ExpiredServicePrincipal": "Could not fetch access token for Azure. Verify if the Service Principal used is valid and not expired."
+    }
+}

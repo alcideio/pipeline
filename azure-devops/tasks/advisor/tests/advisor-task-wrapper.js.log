@@ -1,0 +1,354 @@
+##vso[task.debug]agent.TempDirectory=/tmp
+##vso[task.debug]loading inputs and endpoints
+##vso[task.debug]loading ENDPOINT_AUTH_dockerhubendpoint
+##vso[task.debug]loading ENDPOINT_AUTH_kubernetesEndpoint
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_kubernetesEndpoint_KUBECONFIG
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_kubernetesEndpoint_APITOKEN
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_kubernetesEndpoint_SERVICEACCOUNTCERTIFICATE
+##vso[task.debug]loading ENDPOINT_AUTH_SCHEME_AzureRMSpn
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_AzureRMSpn_SERVICEPRINCIPALID
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_AzureRMSpn_SERVICEPRINCIPALKEY
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_AzureRMSpn_TENANTID
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_AzureRMSpn_SCHEME
+##vso[task.debug]loading INPUT_KUBERNETESCLUSTER
+##vso[task.debug]loaded 11
+##vso[task.debug]Agent.ProxyUrl=undefined
+##vso[task.debug]Agent.CAInfo=undefined
+##vso[task.debug]Agent.ClientCert=undefined
+##vso[task.debug]Agent.SkipCertValidation=undefined
+##vso[task.debug]Agent.ProxyUrl=undefined
+##vso[task.debug]check path : /home/gadi/src/github.com/alcideio/pipeline/azure-devops/tasks/advisor/node_modules/vsts-task-tool-lib/lib.json
+##vso[task.debug]adding resource file: /home/gadi/src/github.com/alcideio/pipeline/azure-devops/tasks/advisor/node_modules/vsts-task-tool-lib/lib.json
+##vso[task.debug]system.culture=undefined
+##vso[task.debug]
+##vso[task.debug]Agent.Version=2.115.0
+##vso[task.debug]Agent.TempDirectory=/tmp
+##vso[task.debug]testing directory '/tmp'
+Downloading: https://alcide.blob.core.windows.net/generic/DCV-2.1/linux/advisor
+##vso[task.debug]destination /tmp/89709309-530b-4318-af37-e7328cd3c397
+##vso[task.debug]downloading
+##vso[task.debug]creating stream
+##vso[task.debug]download complete
+##vso[task.debug]Download path /tmp/89709309-530b-4318-af37-e7328cd3c397
+##vso[task.debug]/tmp/89709309-530b-4318-af37-e7328cd3c397 arg: ["--eula-sign","validate","cluster","--run-mode","pipeline"]
+##vso[task.debug]kubernetesCluster=minikube
+##vso[task.debug]/tmp/89709309-530b-4318-af37-e7328cd3c397 arg: ["--cluster-context","minikube"]
+##vso[task.debug]advisorProfile=null
+##vso[task.debug]advisorProfile=null
+##vso[task.debug]/tmp/89709309-530b-4318-af37-e7328cd3c397 arg: ["--policy-profile",null]
+##vso[task.debug]/tmp/89709309-530b-4318-af37-e7328cd3c397 arg: ["--outfile","advisor-report.html"]
+##vso[task.debug] ** before command
+##vso[task.debug]exec tool: /tmp/89709309-530b-4318-af37-e7328cd3c397
+##vso[task.debug]Arguments:
+##vso[task.debug]   --eula-sign
+##vso[task.debug]   validate
+##vso[task.debug]   cluster
+##vso[task.debug]   --run-mode
+##vso[task.debug]   pipeline
+##vso[task.debug]   --cluster-context
+##vso[task.debug]   minikube
+##vso[task.debug]   --policy-profile
+##vso[task.debug]   null
+##vso[task.debug]   --outfile
+##vso[task.debug]   advisor-report.html
+##vso[task.debug]ignoreTempPath=undefined
+##vso[task.debug]tempPath=undefined
+[command]/tmp/89709309-530b-4318-af37-e7328cd3c397 --eula-sign validate cluster --run-mode pipeline --cluster-context minikube --policy-profile  --outfile advisor-report.html
+##vso[task.debug] ** in catch
+##vso[task.debug]task result: Failed
+##vso[task.issue type=error;]Error: Must initialize
+##vso[task.complete result=Failed;]Error: Must initialize
+
+##vso[task.debug]agent.TempDirectory=/tmp
+##vso[task.debug]loading inputs and endpoints
+##vso[task.debug]loading ENDPOINT_AUTH_dockerhubendpoint
+##vso[task.debug]loading ENDPOINT_AUTH_kubernetesEndpoint
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_kubernetesEndpoint_KUBECONFIG
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_kubernetesEndpoint_APITOKEN
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_kubernetesEndpoint_SERVICEACCOUNTCERTIFICATE
+##vso[task.debug]loading ENDPOINT_AUTH_SCHEME_AzureRMSpn
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_AzureRMSpn_SERVICEPRINCIPALID
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_AzureRMSpn_SERVICEPRINCIPALKEY
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_AzureRMSpn_TENANTID
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_AzureRMSpn_SCHEME
+##vso[task.debug]loading INPUT_KUBERNETESCLUSTER
+##vso[task.debug]loaded 11
+##vso[task.debug]Agent.ProxyUrl=undefined
+##vso[task.debug]Agent.CAInfo=undefined
+##vso[task.debug]Agent.ClientCert=undefined
+##vso[task.debug]Agent.SkipCertValidation=undefined
+##vso[task.debug]Agent.ProxyUrl=undefined
+##vso[task.debug]check path : /home/gadi/src/github.com/alcideio/pipeline/azure-devops/tasks/advisor/node_modules/vsts-task-tool-lib/lib.json
+##vso[task.debug]adding resource file: /home/gadi/src/github.com/alcideio/pipeline/azure-devops/tasks/advisor/node_modules/vsts-task-tool-lib/lib.json
+##vso[task.debug]system.culture=undefined
+##vso[task.debug]
+##vso[task.debug]Agent.Version=2.115.0
+##vso[task.debug]Agent.TempDirectory=/tmp
+##vso[task.debug]testing directory '/tmp'
+Downloading: https://alcide.blob.core.windows.net/generic/DCV-2.1/linux/advisor
+##vso[task.debug]destination /tmp/7b070ea8-a4a0-4a57-80be-1f9f5c7d3509
+##vso[task.debug]downloading
+##vso[task.debug]creating stream
+##vso[task.debug]download complete
+##vso[task.debug]Download path /tmp/7b070ea8-a4a0-4a57-80be-1f9f5c7d3509
+##vso[task.debug]/tmp/7b070ea8-a4a0-4a57-80be-1f9f5c7d3509 arg: ["--eula-sign","validate","cluster","--run-mode","pipeline"]
+##vso[task.debug]kubernetesCluster=minikube
+##vso[task.debug]/tmp/7b070ea8-a4a0-4a57-80be-1f9f5c7d3509 arg: ["--cluster-context","minikube"]
+##vso[task.debug]advisorProfile=null
+##vso[task.debug]/tmp/7b070ea8-a4a0-4a57-80be-1f9f5c7d3509 arg: ["--policy-profile",null]
+##vso[task.debug]/tmp/7b070ea8-a4a0-4a57-80be-1f9f5c7d3509 arg: ["--outfile","advisor-report.html"]
+##vso[task.debug] ** before command
+##vso[task.debug]exec tool: /tmp/7b070ea8-a4a0-4a57-80be-1f9f5c7d3509
+##vso[task.debug]Arguments:
+##vso[task.debug]   --eula-sign
+##vso[task.debug]   validate
+##vso[task.debug]   cluster
+##vso[task.debug]   --run-mode
+##vso[task.debug]   pipeline
+##vso[task.debug]   --cluster-context
+##vso[task.debug]   minikube
+##vso[task.debug]   --policy-profile
+##vso[task.debug]   null
+##vso[task.debug]   --outfile
+##vso[task.debug]   advisor-report.html
+##vso[task.debug]ignoreTempPath=undefined
+##vso[task.debug]tempPath=undefined
+[command]/tmp/7b070ea8-a4a0-4a57-80be-1f9f5c7d3509 --eula-sign validate cluster --run-mode pipeline --cluster-context minikube --policy-profile  --outfile advisor-report.html
+##vso[task.debug] ** in catch
+##vso[task.debug]task result: Failed
+##vso[task.issue type=error;]Error: Must initialize
+##vso[task.complete result=Failed;]Error: Must initialize
+
+##vso[task.debug]agent.TempDirectory=/tmp
+##vso[task.debug]loading inputs and endpoints
+##vso[task.debug]loading ENDPOINT_AUTH_dockerhubendpoint
+##vso[task.debug]loading ENDPOINT_AUTH_kubernetesEndpoint
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_kubernetesEndpoint_KUBECONFIG
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_kubernetesEndpoint_APITOKEN
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_kubernetesEndpoint_SERVICEACCOUNTCERTIFICATE
+##vso[task.debug]loading ENDPOINT_AUTH_SCHEME_AzureRMSpn
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_AzureRMSpn_SERVICEPRINCIPALID
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_AzureRMSpn_SERVICEPRINCIPALKEY
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_AzureRMSpn_TENANTID
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_AzureRMSpn_SCHEME
+##vso[task.debug]loading INPUT_KUBERNETESCLUSTER
+##vso[task.debug]loaded 11
+##vso[task.debug]Agent.ProxyUrl=undefined
+##vso[task.debug]Agent.CAInfo=undefined
+##vso[task.debug]Agent.ClientCert=undefined
+##vso[task.debug]Agent.SkipCertValidation=undefined
+##vso[task.debug]Agent.ProxyUrl=undefined
+##vso[task.debug]check path : /home/gadi/src/github.com/alcideio/pipeline/azure-devops/tasks/advisor/node_modules/vsts-task-tool-lib/lib.json
+##vso[task.debug]adding resource file: /home/gadi/src/github.com/alcideio/pipeline/azure-devops/tasks/advisor/node_modules/vsts-task-tool-lib/lib.json
+##vso[task.debug]system.culture=undefined
+##vso[task.debug]
+##vso[task.debug]Agent.Version=2.115.0
+##vso[task.debug]Agent.TempDirectory=/tmp
+##vso[task.debug]testing directory '/tmp'
+Downloading: https://alcide.blob.core.windows.net/generic/DCV-2.1/linux/advisor
+##vso[task.debug]destination /tmp/d1a08253-07fb-419c-a031-1e41f33ebe94
+##vso[task.debug]downloading
+##vso[task.debug]creating stream
+##vso[task.debug]download complete
+##vso[task.debug]Download path /tmp/d1a08253-07fb-419c-a031-1e41f33ebe94
+##vso[task.debug]/tmp/d1a08253-07fb-419c-a031-1e41f33ebe94 arg: ["--eula-sign","validate","cluster","--run-mode","pipeline"]
+##vso[task.debug]kubernetesCluster=minikube
+##vso[task.debug]/tmp/d1a08253-07fb-419c-a031-1e41f33ebe94 arg: ["--cluster-context","minikube"]
+##vso[task.debug]advisorProfile=null
+##vso[task.debug] ** advisorProfile null
+##vso[task.debug]/tmp/d1a08253-07fb-419c-a031-1e41f33ebe94 arg: ["--policy-profile",null]
+##vso[task.debug]/tmp/d1a08253-07fb-419c-a031-1e41f33ebe94 arg: ["--outfile","advisor-report.html"]
+##vso[task.debug] ** before command
+##vso[task.debug]exec tool: /tmp/d1a08253-07fb-419c-a031-1e41f33ebe94
+##vso[task.debug]Arguments:
+##vso[task.debug]   --eula-sign
+##vso[task.debug]   validate
+##vso[task.debug]   cluster
+##vso[task.debug]   --run-mode
+##vso[task.debug]   pipeline
+##vso[task.debug]   --cluster-context
+##vso[task.debug]   minikube
+##vso[task.debug]   --policy-profile
+##vso[task.debug]   null
+##vso[task.debug]   --outfile
+##vso[task.debug]   advisor-report.html
+##vso[task.debug]ignoreTempPath=undefined
+##vso[task.debug]tempPath=undefined
+[command]/tmp/d1a08253-07fb-419c-a031-1e41f33ebe94 --eula-sign validate cluster --run-mode pipeline --cluster-context minikube --policy-profile  --outfile advisor-report.html
+##vso[task.debug] ** in catch
+##vso[task.debug]task result: Failed
+##vso[task.issue type=error;]Error: Must initialize
+##vso[task.complete result=Failed;]Error: Must initialize
+
+##vso[task.debug]agent.TempDirectory=/tmp
+##vso[task.debug]loading inputs and endpoints
+##vso[task.debug]loading ENDPOINT_AUTH_dockerhubendpoint
+##vso[task.debug]loading ENDPOINT_AUTH_kubernetesEndpoint
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_kubernetesEndpoint_KUBECONFIG
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_kubernetesEndpoint_APITOKEN
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_kubernetesEndpoint_SERVICEACCOUNTCERTIFICATE
+##vso[task.debug]loading ENDPOINT_AUTH_SCHEME_AzureRMSpn
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_AzureRMSpn_SERVICEPRINCIPALID
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_AzureRMSpn_SERVICEPRINCIPALKEY
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_AzureRMSpn_TENANTID
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_AzureRMSpn_SCHEME
+##vso[task.debug]loading INPUT_KUBERNETESCLUSTER
+##vso[task.debug]loaded 11
+##vso[task.debug]Agent.ProxyUrl=undefined
+##vso[task.debug]Agent.CAInfo=undefined
+##vso[task.debug]Agent.ClientCert=undefined
+##vso[task.debug]Agent.SkipCertValidation=undefined
+##vso[task.debug]Agent.ProxyUrl=undefined
+##vso[task.debug]check path : /home/gadi/src/github.com/alcideio/pipeline/azure-devops/tasks/advisor/node_modules/vsts-task-tool-lib/lib.json
+##vso[task.debug]adding resource file: /home/gadi/src/github.com/alcideio/pipeline/azure-devops/tasks/advisor/node_modules/vsts-task-tool-lib/lib.json
+##vso[task.debug]system.culture=undefined
+##vso[task.debug]
+##vso[task.debug]Agent.Version=2.115.0
+##vso[task.debug]Agent.TempDirectory=/tmp
+##vso[task.debug]testing directory '/tmp'
+Downloading: https://alcide.blob.core.windows.net/generic/DCV-2.1/linux/advisor
+##vso[task.debug]destination /tmp/705f9345-dc0e-480d-aaaf-fd2d9714381c
+##vso[task.debug]downloading
+##vso[task.debug]creating stream
+##vso[task.debug]download complete
+##vso[task.debug]Download path /tmp/705f9345-dc0e-480d-aaaf-fd2d9714381c
+##vso[task.debug]/tmp/705f9345-dc0e-480d-aaaf-fd2d9714381c arg: ["--eula-sign","validate","cluster","--run-mode","pipeline"]
+##vso[task.debug]kubernetesCluster=minikube
+##vso[task.debug]/tmp/705f9345-dc0e-480d-aaaf-fd2d9714381c arg: ["--cluster-context","minikube"]
+##vso[task.debug]advisorProfile=null
+##vso[task.debug] ** advisorProfile null
+##vso[task.debug]/tmp/705f9345-dc0e-480d-aaaf-fd2d9714381c arg: ["--outfile","advisor-report.html"]
+##vso[task.debug] ** before command
+##vso[task.debug]exec tool: /tmp/705f9345-dc0e-480d-aaaf-fd2d9714381c
+##vso[task.debug]Arguments:
+##vso[task.debug]   --eula-sign
+##vso[task.debug]   validate
+##vso[task.debug]   cluster
+##vso[task.debug]   --run-mode
+##vso[task.debug]   pipeline
+##vso[task.debug]   --cluster-context
+##vso[task.debug]   minikube
+##vso[task.debug]   --outfile
+##vso[task.debug]   advisor-report.html
+##vso[task.debug]ignoreTempPath=undefined
+##vso[task.debug]tempPath=undefined
+[command]/tmp/705f9345-dc0e-480d-aaaf-fd2d9714381c --eula-sign validate cluster --run-mode pipeline --cluster-context minikube --outfile advisor-report.html
+##vso[task.debug] ** in catch
+##vso[task.debug]task result: Failed
+##vso[task.issue type=error;]Error: Must initialize
+##vso[task.complete result=Failed;]Error: Must initialize
+
+##vso[task.debug]agent.TempDirectory=/tmp
+##vso[task.debug]loading inputs and endpoints
+##vso[task.debug]loading ENDPOINT_AUTH_dockerhubendpoint
+##vso[task.debug]loading ENDPOINT_AUTH_kubernetesEndpoint
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_kubernetesEndpoint_KUBECONFIG
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_kubernetesEndpoint_APITOKEN
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_kubernetesEndpoint_SERVICEACCOUNTCERTIFICATE
+##vso[task.debug]loading ENDPOINT_AUTH_SCHEME_AzureRMSpn
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_AzureRMSpn_SERVICEPRINCIPALID
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_AzureRMSpn_SERVICEPRINCIPALKEY
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_AzureRMSpn_TENANTID
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_AzureRMSpn_SCHEME
+##vso[task.debug]loading INPUT_KUBERNETESCLUSTER
+##vso[task.debug]loaded 11
+##vso[task.debug]Agent.ProxyUrl=undefined
+##vso[task.debug]Agent.CAInfo=undefined
+##vso[task.debug]Agent.ClientCert=undefined
+##vso[task.debug]Agent.SkipCertValidation=undefined
+##vso[task.debug]Agent.ProxyUrl=undefined
+##vso[task.debug]check path : /home/gadi/src/github.com/alcideio/pipeline/azure-devops/tasks/advisor/node_modules/vsts-task-tool-lib/lib.json
+##vso[task.debug]adding resource file: /home/gadi/src/github.com/alcideio/pipeline/azure-devops/tasks/advisor/node_modules/vsts-task-tool-lib/lib.json
+##vso[task.debug]system.culture=undefined
+##vso[task.debug]
+##vso[task.debug]Agent.Version=2.115.0
+##vso[task.debug]Agent.TempDirectory=/tmp
+##vso[task.debug]testing directory '/tmp'
+Downloading: https://alcide.blob.core.windows.net/generic/DCV-2.1/linux/advisor
+##vso[task.debug]destination /tmp/ebb77c29-8b88-4507-99e0-3aea1e13658a
+##vso[task.debug]downloading
+##vso[task.debug]creating stream
+##vso[task.debug]download complete
+##vso[task.debug]Download path /tmp/ebb77c29-8b88-4507-99e0-3aea1e13658a
+##vso[task.debug]/tmp/ebb77c29-8b88-4507-99e0-3aea1e13658a arg: ["--eula-sign","validate","cluster"]
+##vso[task.debug]kubernetesCluster=minikube
+##vso[task.debug]/tmp/ebb77c29-8b88-4507-99e0-3aea1e13658a arg: ["--cluster-context","minikube"]
+##vso[task.debug]failOnCritical=null
+##vso[task.debug]advisorProfile=null
+##vso[task.debug]/tmp/ebb77c29-8b88-4507-99e0-3aea1e13658a arg: ["--outfile","advisor-report.html"]
+##vso[task.debug] ** before command
+##vso[task.debug]exec tool: /tmp/ebb77c29-8b88-4507-99e0-3aea1e13658a
+##vso[task.debug]Arguments:
+##vso[task.debug]   --eula-sign
+##vso[task.debug]   validate
+##vso[task.debug]   cluster
+##vso[task.debug]   --cluster-context
+##vso[task.debug]   minikube
+##vso[task.debug]   --outfile
+##vso[task.debug]   advisor-report.html
+##vso[task.debug]ignoreTempPath=undefined
+##vso[task.debug]tempPath=undefined
+[command]/tmp/ebb77c29-8b88-4507-99e0-3aea1e13658a --eula-sign validate cluster --cluster-context minikube --outfile advisor-report.html
+##vso[task.debug] ** in catch
+##vso[task.debug]task result: Failed
+##vso[task.issue type=error;]Error: Must initialize
+##vso[task.complete result=Failed;]Error: Must initialize
+
+##vso[task.debug]agent.TempDirectory=/tmp
+##vso[task.debug]loading inputs and endpoints
+##vso[task.debug]loading ENDPOINT_AUTH_dockerhubendpoint
+##vso[task.debug]loading ENDPOINT_AUTH_kubernetesEndpoint
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_kubernetesEndpoint_KUBECONFIG
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_kubernetesEndpoint_APITOKEN
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_kubernetesEndpoint_SERVICEACCOUNTCERTIFICATE
+##vso[task.debug]loading ENDPOINT_AUTH_SCHEME_AzureRMSpn
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_AzureRMSpn_SERVICEPRINCIPALID
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_AzureRMSpn_SERVICEPRINCIPALKEY
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_AzureRMSpn_TENANTID
+##vso[task.debug]loading ENDPOINT_AUTH_PARAMETER_AzureRMSpn_SCHEME
+##vso[task.debug]loading INPUT_KUBERNETESCLUSTER
+##vso[task.debug]loading INPUT_ADVISORSCANREPORT
+##vso[task.debug]loaded 12
+##vso[task.debug]Agent.ProxyUrl=undefined
+##vso[task.debug]Agent.CAInfo=undefined
+##vso[task.debug]Agent.ClientCert=undefined
+##vso[task.debug]Agent.SkipCertValidation=undefined
+##vso[task.debug]Agent.ProxyUrl=undefined
+##vso[task.debug]check path : /home/gadi/src/github.com/alcideio/pipeline/azure-devops/tasks/advisor/node_modules/vsts-task-tool-lib/lib.json
+##vso[task.debug]adding resource file: /home/gadi/src/github.com/alcideio/pipeline/azure-devops/tasks/advisor/node_modules/vsts-task-tool-lib/lib.json
+##vso[task.debug]system.culture=undefined
+##vso[task.debug]
+##vso[task.debug]Agent.Version=2.115.0
+##vso[task.debug]Agent.TempDirectory=/tmp
+##vso[task.debug]testing directory '/tmp'
+Downloading: https://alcide.blob.core.windows.net/generic/DCV-2.1/linux/advisor
+##vso[task.debug]destination /tmp/b7905d40-d7c1-4698-a30f-ee4176aa2a44
+##vso[task.debug]downloading
+##vso[task.debug]creating stream
+##vso[task.debug]download complete
+##vso[task.debug]Download path /tmp/b7905d40-d7c1-4698-a30f-ee4176aa2a44
+##vso[task.debug]/tmp/b7905d40-d7c1-4698-a30f-ee4176aa2a44 arg: ["--eula-sign","validate","cluster"]
+##vso[task.debug]kubernetesCluster=minikube
+##vso[task.debug]/tmp/b7905d40-d7c1-4698-a30f-ee4176aa2a44 arg: ["--cluster-context","minikube"]
+##vso[task.debug]failOnCritical=null
+##vso[task.debug]advisorProfile=null
+##vso[task.debug]advisorScanReport=/tmp/advisor-report.html
+##vso[task.debug]/tmp/b7905d40-d7c1-4698-a30f-ee4176aa2a44 arg: ["--outfile","/tmp/advisor-report.html"]
+##vso[task.debug] ** before command
+##vso[task.debug]exec tool: /tmp/b7905d40-d7c1-4698-a30f-ee4176aa2a44
+##vso[task.debug]Arguments:
+##vso[task.debug]   --eula-sign
+##vso[task.debug]   validate
+##vso[task.debug]   cluster
+##vso[task.debug]   --cluster-context
+##vso[task.debug]   minikube
+##vso[task.debug]   --outfile
+##vso[task.debug]   /tmp/advisor-report.html
+##vso[task.debug]ignoreTempPath=undefined
+##vso[task.debug]tempPath=undefined
+[command]/tmp/b7905d40-d7c1-4698-a30f-ee4176aa2a44 --eula-sign validate cluster --cluster-context minikube --outfile /tmp/advisor-report.html
+##vso[task.debug] ** in catch
+##vso[task.debug]task result: Failed
+##vso[task.issue type=error;]Error: Must initialize
+##vso[task.complete result=Failed;]Error: Must initialize
+

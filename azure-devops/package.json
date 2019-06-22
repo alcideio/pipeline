@@ -1,0 +1,20 @@
+{
+  "name": "alcide-advisor-scanner",
+  "version": "1.0.0",
+  "description": "Alcide Kubernetes Advisor Scanner",
+  "main": "tasks/advisor/kubernetes.js",
+  "scripts": {
+    "build": "./build.sh -b",
+    "publish": "./build.sh -p",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "kubernetes",
+    "security"
+  ],
+  "author": "Alcide",
+  "license": "ISC",
+  "dependencies": {
+    "@types/mocha": "^5.2.7"
+  }
+}
