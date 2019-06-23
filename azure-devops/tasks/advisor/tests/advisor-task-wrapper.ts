@@ -7,6 +7,7 @@ let tmr: tmrm.TaskMockRunner = new tmrm.TaskMockRunner(taskPath);
 
 tmr.setInput('kubernetesCluster', 'minikube');
 tmr.setInput('advisorScanReport', '/tmp/advisor-report.html');
+tmr.setInput('advisorProfile', '/tmp');
 
 
 tmr.run();

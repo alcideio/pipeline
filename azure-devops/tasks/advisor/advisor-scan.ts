@@ -29,7 +29,11 @@ export async function AdvisorRunScan() {
         let advisorProfile = tl.getInput('advisorProfile', false)
         
         if ( advisorProfile != null && advisorProfile != undefined && advisorProfile != '') {
-            advisorCli.arg(['--policy-profile', advisorProfile]);
+            if (tl.stats(advisorProfile).isFile()) {
+                advisorCli.arg(['--policy-profile', advisorProfile]);
+            } else {
+                tl.warning("Advisor Profile is not a file " + advisorProfile);
+            }
         }  
         
         advisorCli.arg(['--outfile', tl.getInput('advisorScanReport', true)]);

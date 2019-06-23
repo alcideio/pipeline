@@ -1,5 +1,5 @@
 {
-    "id": "5be304e5-f472-47ff-b256-d57d589e649f",
+    "id": "5a81f438-1a58-4331-89dc-b28f0ced7c0c",
     "name": "alcide-advisor-scan",
     "friendlyName": "Alcide Advisor Kubernetes Scan",
     "description": "Task to scan a Kubernetes Cluster within Azure DevOps deployment pipelines",
@@ -15,7 +15,7 @@
     "author": "Alcide",
     "version": {
         "Major": 1,
-        "Minor": 1,
+        "Minor": 0,
         "Patch": 1
     },
     "instanceNameFormat": "Alcide Advisor Scan of '$(kubernetesCluster)'",
@@ -128,7 +128,7 @@
         {
             "name": "useClusterAdmin",
             "type": "boolean",
-            "label": "Use cluster admin credentials",
+            "label": "Use Cluster Admin Credentials",
             "defaultValue": "true",
             "visibleRule": "connectionType = Azure Resource Manager",
             "groupName": "kubernetesCluster",
