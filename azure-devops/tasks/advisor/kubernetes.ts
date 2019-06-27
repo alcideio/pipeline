@@ -16,14 +16,13 @@ tl.cd(tl.getInput("cwd"));
 const environmentVariableMaximumSize = 32766;
 
 var kubeconfigfilePath;
-
-
+kubeconfigfilePath = tl.getVariable("KUBECONFIG");
 // open kubectl connection and run the command
 var connection = new ClusterConnection(kubeconfigfilePath);
 try
 {
     connection.open().then(  
-        () => { return run(connection, "") }
+        () => { return run(connection) }
     ).then(
        () =>  {
            tl.setResult(tl.TaskResult.Succeeded, "");
@@ -39,7 +38,8 @@ catch (error)
     tl.setResult(tl.TaskResult.Failed, error.message);
 }
 
-async function run(clusterConnection: ClusterConnection, command: string) 
+async function run(clusterConnection: ClusterConnection) 
 {
     await AdvisorRunScan();
 }
+

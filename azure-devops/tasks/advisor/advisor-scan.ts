@@ -9,6 +9,20 @@ import * as toolLib from 'vsts-task-tool-lib/tool';
 import * as advisorutils from "./utilities";
 import * as advisordownloader from "./advisor-downloader";
 
+function getClusterContextName(connectionType: string): string {
+    if(connectionType === "Azure Resource Manager") {
+        return tl.getInput('kubernetesCluster', true);
+    }
+    else {
+        var kubernetesServiceEndpoint = tl.getInput("kubernetesServiceEndpoint", true);
+        var clusterContext = tl.getEndpointAuthorizationParameter(kubernetesServiceEndpoint, 'clusterContext', true);
+
+        return clusterContext;
+    }
+
+    return "<missing-cluster-context>";
+}
+
 // Simple wrapper around Alcide Advisor Scanner
 export async function AdvisorRunScan() {
     try {
@@ -20,7 +34,7 @@ export async function AdvisorRunScan() {
         let advisorCli = tl.tool(advisorPath);
 
         advisorCli.arg(["--eula-sign", "validate", "cluster"]);
-        advisorCli.arg(['--cluster-context', tl.getInput('kubernetesCluster', true)]);
+        advisorCli.arg(['--cluster-context', getClusterContextName(tl.getInput("connectionType", true))]);
 
         if (tl.getBoolInput('failOnCritical', false)) {
             advisorCli.arg([ "--run-mode", "pipeline"]);

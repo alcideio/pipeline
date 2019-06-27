@@ -17,6 +17,17 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const tl = require("azure-pipelines-task-lib/task");
 const advisordownloader = __importStar(require("./advisor-downloader"));
+function getClusterContextName(connectionType) {
+    if (connectionType === "Azure Resource Manager") {
+        return tl.getInput('kubernetesCluster', true);
+    }
+    else {
+        var kubernetesServiceEndpoint = tl.getInput("kubernetesServiceEndpoint", true);
+        var clusterContext = tl.getEndpointAuthorizationParameter(kubernetesServiceEndpoint, 'clusterContext', true);
+        return clusterContext;
+    }
+    return "<missing-cluster-context>";
+}
 // Simple wrapper around Alcide Advisor Scanner
 function AdvisorRunScan() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -26,7 +37,7 @@ function AdvisorRunScan() {
             //let advisorPath: string = tl.which('advisor', true);
             let advisorCli = tl.tool(advisorPath);
             advisorCli.arg(["--eula-sign", "validate", "cluster"]);
-            advisorCli.arg(['--cluster-context', tl.getInput('kubernetesCluster', true)]);
+            advisorCli.arg(['--cluster-context', getClusterContextName(tl.getInput("connectionType", true))]);
             if (tl.getBoolInput('failOnCritical', false)) {
                 advisorCli.arg(["--run-mode", "pipeline"]);
             }

@@ -23,11 +23,22 @@ build() {
         fi
 
     
-        tsc --listFiles --listEmittedFiles --extendedDiagnostics
+        tsc --extendedDiagnostics
         popd &> /dev/null
     done
     
     tfx extension create --manifest-globs vss-extension.json --trace-level info
+}
+
+test() {
+    for task in tasks/*; do
+        echo "Testing task ${task}"
+    
+        pushd . &> /dev/null && cd "$task"
+        mocha  tests/_suite.js  
+        
+        popd &> /dev/null
+    done    
 }
 
 publish() {
@@ -38,11 +49,14 @@ usage() {
     echo "${0} [bp]"
 }
 
-while getopts ":bp" opt; do
+while getopts ":bpt" opt; do
     case "${opt}" in
         b)
             build
             ;;
+        t)
+            test
+            ;;            
         p)
             publish
             ;;

@@ -21,10 +21,11 @@ tl.cd(tl.getInput("cwd"));
 //var command = tl.getInput("command", false);
 const environmentVariableMaximumSize = 32766;
 var kubeconfigfilePath;
+kubeconfigfilePath = tl.getVariable("KUBECONFIG");
 // open kubectl connection and run the command
 var connection = new clusterconnection_1.default(kubeconfigfilePath);
 try {
-    connection.open().then(() => { return run(connection, ""); }).then(() => {
+    connection.open().then(() => { return run(connection); }).then(() => {
         tl.setResult(tl.TaskResult.Succeeded, "");
         connection.close();
     }).catch((error) => {
@@ -35,7 +36,7 @@ try {
 catch (error) {
     tl.setResult(tl.TaskResult.Failed, error.message);
 }
-function run(clusterConnection, command) {
+function run(clusterConnection) {
     return __awaiter(this, void 0, void 0, function* () {
         yield advisor_scan_1.AdvisorRunScan();
     });

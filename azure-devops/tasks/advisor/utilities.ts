@@ -8,6 +8,8 @@ import * as os from "os";
 import * as util from "util";
 import * as toolLib from 'vsts-task-tool-lib/tool';
 
+import kubectlutility = require("kubernetes-common-v2/kubectlutility");
+import downloadutility = require("utility-common-v2/downloadutility");
 
 export function getTempDirectory(): string {
     return tl.getVariable('agent.tempDirectory') || os.tmpdir();
@@ -34,7 +36,41 @@ function ensureDirExists(dirPath : string) : void
     }
 }
 
-export function sanitizeVersionString(versions: string[], inputVersion: string): string {
+export async function getKubectlVersion(versionSpec: string, checkLatest: boolean) : Promise<string> {
+    
+    if(checkLatest) {
+        return await kubectlutility.getStableKubectlVersion();
+    }
+    else if (versionSpec) {
+        if(versionSpec === "1.7") {
+            // Backward compat handle
+            tl.warning(tl.loc("UsingLatestStableVersion"));
+            return kubectlutility.getStableKubectlVersion();
+        } 
+        else if ("v".concat(versionSpec) === kubectlutility.stableKubectlVersion) {
+            tl.debug(util.format("Using default versionSpec:%s.", versionSpec));
+            return kubectlutility.stableKubectlVersion;
+        }
+        else {
+            // Do not check for validity of the version here,
+            // We'll return proper error message when the download fails
+            if(!versionSpec.startsWith("v")) {
+                return "v".concat(versionSpec);
+            }
+            else{
+                return versionSpec;
+            }
+        } 
+     }
+ 
+     return kubectlutility.stableKubectlVersion;
+ }
+
+export async function downloadKubectl(version: string): Promise<string> {
+    return await kubectlutility.downloadKubectl(version);
+}
+
+export function sanitizeVersionString(versions, inputVersion: string): string {
     var version = toolLib.evaluateVersions(versions, inputVersion);
     if (!version) {
         throw new Error(tl.loc("NotAValidVersion", JSON.stringify(versions)));

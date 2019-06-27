@@ -30,11 +30,31 @@ class ClusterConnection {
             this.kubeconfigFile = "";
         }
     }
+    loadClusterType(connectionType) {
+        if (connectionType === "Azure Resource Manager") {
+            return require("./armkubernetescluster");
+        }
+        else {
+            return require("./generickubernetescluster");
+        }
+    }
     // get kubeconfig file path
-    getKubeConfig() {
+    getKubeConfig(connectionType) {
         return __awaiter(this, void 0, void 0, function* () {
-            var armkubernetescluster = require('./armkubernetescluster');
-            return armkubernetescluster.getKubeConfig();
+            return this.loadClusterType(connectionType).getKubeConfig().then((config) => {
+                return config;
+            });
+        });
+    }
+    initialize() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.getKubectl().then((kubectlpath) => {
+                this.kubectlPath = kubectlpath;
+                // prepend the tools path. instructs the agent to prepend for future tasks
+                // if(!process.env['PATH'].toLowerCase().startsWith(path.dirname(this.kubectlPath.toLowerCase()))) {
+                //     toolLib.prependPath(path.dirname(this.kubectlPath));
+                // }     
+            });
         });
     }
     createCommand() {
@@ -44,19 +64,29 @@ class ClusterConnection {
     // open kubernetes connection
     open() {
         return __awaiter(this, void 0, void 0, function* () {
+            var connectionType = tl.getInput("connectionType", true);
+            if (connectionType === "None") {
+                return this.initialize();
+            }
             var kubeconfig;
             if (!this.kubeconfigFile) {
-                kubeconfig = yield this.getKubeConfig();
+                kubeconfig = yield this.getKubeConfig(connectionType);
             }
-            if (kubeconfig) {
-                this.kubeconfigFile = path.join(this.userDir, "config");
-                fs.writeFileSync(this.kubeconfigFile, kubeconfig);
-            }
-            process.env["KUBECONFIG"] = this.kubeconfigFile;
+            return this.initialize().then(() => {
+                if (kubeconfig) {
+                    this.kubeconfigFile = path.join(this.userDir, "config");
+                    fs.writeFileSync(this.kubeconfigFile, kubeconfig);
+                }
+                process.env["KUBECONFIG"] = this.kubeconfigFile;
+            });
         });
     }
     // close kubernetes connection
     close() {
+        var connectionType = tl.getInput("connectionType", true);
+        if (connectionType === "None") {
+            return;
+        }
         if (this.kubeconfigFile != null && fs.existsSync(this.kubeconfigFile)) {
             delete process.env["KUBECONFIG"];
             fs.unlinkSync(this.kubeconfigFile);
@@ -76,6 +106,41 @@ class ClusterConnection {
         if (kubeConfigPath) {
             tl.setVariable("KUBECONFIG", "");
         }
+    }
+    getKubectl() {
+        return __awaiter(this, void 0, void 0, function* () {
+            // let versionOrLocation = tl.getInput("versionOrLocation");
+            // if( versionOrLocation === "location") {
+            //     let pathToKubectl = tl.getPathInput("specifyLocation", true, true);
+            //     try {
+            //         fs.chmodSync(pathToKubectl, "777");
+            //     } catch (ex) {
+            //         tl.debug(`Could not chmod ${pathToKubectl}, exception: ${JSON.stringify(ex)}`)
+            //     }
+            //     return pathToKubectl;
+            // }
+            // else if (versionOrLocation === "version") {
+            //     var defaultVersionSpec = "1.13.2";
+            //     let versionSpec = tl.getInput("versionSpec");
+            //     let checkLatest: boolean = tl.getBoolInput('checkLatest', false);
+            //     var version = await utils.getKubectlVersion(versionSpec, checkLatest);
+            //     if (versionSpec != defaultVersionSpec || checkLatest)
+            //     {
+            //        tl.debug(tl.loc("DownloadingClient"));
+            //        return await utils.downloadKubectl(version); 
+            //     }
+            //     // Reached here => default version
+            //     // Now to handle back-compat, return the version installed on the machine
+            //     if(this.kubectlPath && fs.existsSync(this.kubectlPath))
+            //     {
+            //         return this.kubectlPath;
+            //     }
+            //    // Download the default version
+            //    tl.debug(tl.loc("DownloadingClient"));
+            //    return await utils.downloadKubectl(version); 
+            // }
+            return "";
+        });
     }
 }
 exports.default = ClusterConnection;
