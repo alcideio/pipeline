@@ -15,8 +15,11 @@ With Alcide Advisor, you can cover the following security checks:
 
 [VIDEO: Alcide Advisor Overview](https://youtu.be/UXNPMzCtG84)
 
+## Azure DevOps Pipeline Integration
 
-## Use Case Examples 
+A short video that walk you through the integration can be found here [VIDEO: Azure DevOps Pipeline Integration](https://youtu.be/dFU4fbWdtg0)
+
+## Use Case Examples
 
 ### Hunting Misplaced Secrets, or Excessive Secret Access
 The Kubernetes secret object is designed to store and manage sensitive information, such as passwords, OAuth tokens, and SSH keys. Placing this information in plain text or in the wild (such as config maps) makes it easily exposed to unauthorized users, and is a greater risk for your Kubernetes and cloud provider environments.
