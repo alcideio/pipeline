@@ -2,13 +2,13 @@
     "manifestVersion": 1,
     "id": "alcide-kubernetes-advisor-ce",
     "publisher": "Alcide",
-    "version": "1.1.1",
+    "version": "1.2.3",
     "name": "Alcide Kubernetes Advisor",
     "description": "A Kubernetes Security & Hygiene Scanner for CI+CD pipleines",
     "public": false,
     "categories": ["Azure Pipelines"],
     "tags": [
-        "security","kubernetes", "alcide", "advisor", "vulnerability", "scan"
+        "security","kubernetes", "alcide", "advisor", "vulnerability", "scan", "ci+cd"
     ],
     "content": {
         "details": {

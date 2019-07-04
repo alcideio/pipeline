@@ -20,7 +20,7 @@ const util = __importStar(require("util"));
 const tl = require("azure-pipelines-task-lib/task");
 const toolLib = __importStar(require("vsts-task-tool-lib/tool"));
 const advisorBinaryName = 'advisor';
-exports.advisorBinaryVersion = '2.1';
+exports.advisorBinaryVersion = 'stable';
 function DownloadAdvisor(version) {
     return __awaiter(this, void 0, void 0, function* () {
         if (version === undefined || version === null || version === "") {
@@ -36,5 +36,5 @@ function DownloadAdvisor(version) {
 }
 exports.DownloadAdvisor = DownloadAdvisor;
 function getAdvisorDownloadURL(version) {
-    return util.format('https://alcide.blob.core.windows.net/generic/DCV-%s/linux/advisor', version);
+    return util.format('https://alcide.blob.core.windows.net/generic/%s/linux/advisor', version);
 }

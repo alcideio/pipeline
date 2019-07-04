@@ -9,7 +9,7 @@ import * as toolLib from 'vsts-task-tool-lib/tool';
 import * as advisorutils from "./utilities";
 
 const advisorBinaryName = 'advisor';
-export const advisorBinaryVersion = '2.1';
+export const advisorBinaryVersion = 'stable';
 
 export async function DownloadAdvisor(version?: string): Promise<string> {
 
@@ -28,5 +28,5 @@ export async function DownloadAdvisor(version?: string): Promise<string> {
 }
 
 function getAdvisorDownloadURL(version: string): string {
-    return util.format('https://alcide.blob.core.windows.net/generic/DCV-%s/linux/advisor', version);
+    return util.format('https://alcide.blob.core.windows.net/generic/%s/linux/advisor', version);
 }

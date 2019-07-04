@@ -15,8 +15,8 @@
     "author": "Alcide",
     "version": {
         "Major": 1,
-        "Minor": 1,
-        "Patch": 0
+        "Minor": 2,
+        "Patch": 3
     },
     "instanceNameFormat": "Alcide Advisor Scan of '$(kubernetesCluster)'",
     "demands": [],
@@ -44,7 +44,20 @@
             "properties": {
                 "EditableOptions": "True"
             }
-        },        
+        },  
+        {
+            "name": "advisorScanReportFormat",
+            "type": "radio",
+            "label": "Report Format",
+            "defaultValue": "Html",
+            "required": true,
+            "options": {
+                "Html": "Html",
+                "Excel": "Excel"
+            },
+            "groupName": "advisorSettings",
+            "helpMarkDown": "Choose report file format"
+        },              
         {
             "name": "advisorScanReport",
             "type": "filePath",
@@ -56,6 +69,24 @@
             "properties": {
                 "EditableOptions": "True"
             }
+        },         
+        {
+            "name": "alcideApiKey",
+            "type": "string",
+            "label": "Alcide Api Key",
+            "defaultValue": "",
+            "groupName": "advisorSettings",
+            "helpMarkDown": "Use your API Key or create a <a href=\"https://www.alcide.io/advisor-free-trial\" target=\"_blank\">free account</a> to obtain one",
+            "required": false
+        },
+        {
+            "name": "alcideApiServer",
+            "type": "string",
+            "label": "Alcide Api Server",
+            "defaultValue": "",
+            "groupName": "advisorSettings",
+            "helpMarkDown": "Use your Api Server or create a <a href=\"https://www.alcide.io/advisor-free-trial\" target=\"_blank\">free account</a> to obtain one",
+            "required": false
         },        
         {
             "name": "advisorProfile",
@@ -65,7 +96,7 @@
             "groupName": "advisorSettings",
             "helpMarkDown": "Alcide Advisor Scan Profile.",
             "required": false
-        },
+        },        
         {
             "name": "connectionType",
             "type": "pickList",
