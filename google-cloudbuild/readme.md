@@ -95,7 +95,7 @@ While Kubernetes drastically simplifies the orchestration of your most sensitive
 An example of a serious vulnerability that was recently found is the privilege escalation vulnerability, tracked as [CVE-2018-1002105](https://nvd.nist.gov/vuln/detail/CVE-2018-1002105). This vulnerability allows users, through a specially crafted request, to establish a connection through the Kubernetes API server and send arbitrary requests over the same connection directly to that backend. It was authenticated with the Kubernetes API server’s TLS credentials that were used to establish the backend connection.
 
 
-`Alcide Advisor` scans your cluster for known vulnerabilities on the master API server and worker node components, including container runtime. This has great benefit for teams using both managed clusters like Kops, AKS-Engine or the managed kubernetes services like AKS.
+`Alcide Advisor` scans your cluster for known vulnerabilities on the master API server and worker node components, including container runtime. This has great benefit for teams using both managed clusters like Kops, kubeadm or the managed kubernetes services like GKE.
 
 ### App-Formation
 The App-formation feature ([requires regsitration](https://www.alcide.io/advisor-free-trial/)) allows you to create a baseline profile on a specific cluster, and get scan results only on issues that deviate from the baseline. This helps DevOps focus on relevant issues and assets that require attention.
