@@ -41,10 +41,28 @@ function AdvisorRunScan() {
             if (tl.getBoolInput('failOnCritical', false)) {
                 advisorCli.arg(["--run-mode", "pipeline"]);
             }
+            let advisorScanReportFormat = tl.getInput('advisorScanReportFormat', false);
+            if (advisorScanReportFormat != null && advisorScanReportFormat != undefined && advisorScanReportFormat != '' && advisorScanReportFormat != 'html') {
+                advisorCli.arg(["--output", "excel"]);
+            }
             let advisorProfile = tl.getInput('advisorProfile', false);
             if (advisorProfile != null && advisorProfile != undefined && advisorProfile != '') {
                 if (tl.stats(advisorProfile).isFile()) {
                     advisorCli.arg(['--policy-profile', advisorProfile]);
+                    let alcideApiKey = tl.getInput('alcideApiKey', false);
+                    if (alcideApiKey != null && alcideApiKey != undefined && alcideApiKey != '') {
+                        advisorCli.arg(["--alcide-api-key", alcideApiKey]);
+                    }
+                    else {
+                        tl.warning("Advisor Api Key is missing ");
+                    }
+                    let alcideApiServer = tl.getInput('alcideApiServer', false);
+                    if (alcideApiServer != null && alcideApiServer != undefined && alcideApiServer != '') {
+                        advisorCli.arg(["--alcide-api-key", alcideApiServer]);
+                    }
+                    else {
+                        tl.warning("Advisor Api Server is missing ");
+                    }
                 }
                 else {
                     tl.warning("Advisor Profile is not a file " + advisorProfile);

@@ -16,7 +16,7 @@
     "version": {
         "Major": 1,
         "Minor": 2,
-        "Patch": 3
+        "Patch": 4
     },
     "instanceNameFormat": "Alcide Advisor Scan of '$(kubernetesCluster)'",
     "demands": [],
@@ -52,8 +52,8 @@
             "defaultValue": "Html",
             "required": true,
             "options": {
-                "Html": "Html",
-                "Excel": "Excel"
+                "Html": "html",
+                "Excel": "excel"
             },
             "groupName": "advisorSettings",
             "helpMarkDown": "Choose report file format"
