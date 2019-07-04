@@ -1,8 +1,8 @@
 # Task for security scanning kubernetes cluster & workloads hygiene
 
-Alcide Advisor is an agentless service for Kubernetes audit and compliance that’s built to ensure a frictionless and secured DevSecOps workflow by layering a hygiene scan of Kubernetes cluster & workloads early in the development process and before moving to production.
+Alcide Advisor is an agentless Kubernetes audit, compliance and hygiene scanner that’s built to ensure a friciton free DevSecOps workflows. Alcide Advisor can be plugged early in the development process and before moving to production.
 
-With Alcide Advisor, you can cover the following security checks:
+With Alcide Advisor, the security checks you can cover includes:
 
 - Kubernetes infrastructure vulnerability scanning.
 - Hunting misplaced secrets, or excessive priviliges for secret access.
@@ -12,6 +12,8 @@ With Alcide Advisor, you can cover the following security checks:
 - Kubernetes API server access privileges.
 - Kubernetes operators security best practices.
 - Deployment conformance to labeling, annotating, resource limits and much more ...
+
+Alcide Advisor security checks are being added and updated on a regular basis.
 
 [VIDEO: Alcide Advisor Overview](https://youtu.be/UXNPMzCtG84)
 

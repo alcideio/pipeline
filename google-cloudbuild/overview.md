@@ -2,7 +2,7 @@
 
 Alcide Advisor is an agentless Kubernetes audit, compliance and hygiene scanner that’s built to ensure a friciton free DevSecOps workflows. Alcide Advisor can be plugged early in the development process and before moving to production.
 
-With Alcide Advisor, a sample of security checks you can cover includes:
+With Alcide Advisor, the security checks you can cover includes:
 
 - Kubernetes infrastructure vulnerability scanning.
 - Hunting misplaced secrets, or excessive priviliges for secret access.
@@ -40,6 +40,8 @@ steps:
 # Scan the target cluster.
 # kubeconfig fetched by previous step
 #
+# To use profile based scan, please create a free account at www.alcide.io/advisor-free-trial
+#
 - name: 'alcide/advisor:stable'
   args:
   - --eula-sign
@@ -51,10 +53,14 @@ steps:
   - '--namespace-exclude=-'
   - '--outfile'
   - 'scan.html'
-  #- '--policy-profile gold.yaml'
+  #- '--policy-profile=gold.yaml'
+  #- '--alcide-api-key=${_ALCIDE_APIKEY}'
+  #- '--alcide-api-server=${_ALCIDE_API_SERVER}'
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=${_GKE_CLUSTER_ZONE}'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=${_GKE_CLUSTER}'  
+  - 'CLOUDSDK_CONTAINER_CLUSTER=${_GKE_CLUSTER}'
+  #- 'ALCIDE_APIKEY=${_ALCIDE_APIKEY}'
+  #- 'ALCIDE_API_SERVER=${_ALCIDE_API_SERVER}'
 
 # artifacts:
 #   objects:
