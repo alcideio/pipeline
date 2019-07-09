@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "alcide-kubernetes-advisor-ce",
     "publisher": "Alcide",
-    "version": "2.1.2",
+    "version": "2.1.5",
     "name": "Alcide Kubernetes Advisor",
     "description": "A Kubernetes Security & Hygiene Scanner for CI+CD pipleines",
     "public": true,
@@ -16,6 +16,9 @@
     "content": {
         "details": {
             "path": "overview.md"
+        },
+        "license": {
+            "path": "eula.md"
         }
     },
     "targets": [
@@ -34,7 +37,15 @@
         "license": {
             "uri": "https://demo.alcide.io/eula"
         }
-    },    
+    },
+    "screenshots": [
+        {
+            "path": "images/advisor-screenshot-2.png"
+        },
+        {
+            "path": "images/advisor-screenshot-1.png"
+        }
+    ],        
     "contributions": [
         {
             "id": "custom-build-release-task",
@@ -51,6 +62,10 @@
         "default": "images/alcide-icon.png"
     },    
     "files": [
+        {
+            "path": "images",
+            "addressable": true
+        },        
         {
             "path": "tasks/advisor"
         }
