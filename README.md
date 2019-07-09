@@ -34,16 +34,16 @@ An example of a serious vulnerability that was recently found is the privilege e
 `Alcide Advisor` scans your cluster for known vulnerabilities on the master API server and worker node components, including container runtime. This has great benefit for teams using both managed clusters like Kops, AKS-Engine or the managed kubernetes services like AKS.
 
 ### App-Formation
-The App-formation feature ([requires regsitration](https://www.alcide.io/advisor-free-trial/)) allows you to create a baseline profile on a specific cluster, and get scan results only on issues that deviate from the baseline. This helps DevOps focus on relevant issues and assets that require attention.
+The App-formation feature ([requires regsitration](https://www.alcide.io/advisor-free-trial/)) allows you to generate a baseline profile based on a specific cluster - subsequent scans will return only issues that deviate from the baseline. This helps DevOps to focus only on relevant issues and assets that require attention.
 
 
 ## Available Integrations
 
-Azure DevOps
+- Jenkins
+- Azure DevOps
+- Google Cloud Build
 
 **Alcide Advisor Kubernetes Scan** which scans kubernetes cluster(s) for security & hygiene drifts.
-
-To publish a scan report either to `Azure Pipeline` or `File Share` use the **Publish build artifacts** task
 
 ## Feedback and issues
 

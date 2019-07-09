@@ -1,0 +1,31 @@
+        stage('Get Alcide kube-advisor binary') {
+            steps {
+                dir("kube-advisor") {
+                    sh "curl -o kube-advisor https://alcide.blob.core.windows.net/generic/stable/linux/advisor"
+                    sh "chmod +x kube-advisor"
+                }
+            }
+        }
+        stage('kube-advisor Scan'){
+            steps{
+                dir("kube-advisor") {
+                    sh """#!/bin/bash
+                    CURRENT_CONTEXT=`kubectl config current-context`
+                    ./kube-advisor --eula-sign validate cluster --cluster-context \$CURRENT_CONTEXT --namespace-include="*" --outfile kube-advisor-${params.K8S_CLUSTER}.html
+                """
+
+                    // Archive the built artifacts
+                    archive includes: "kube-advisor-${params.K8S_CLUSTER}.html"
+
+                    // publish html
+                    publishHTML target: [
+                            allowMissing: false,
+                            alwaysLinkToLastBuild: false,
+                            keepAll: true,
+                            reportDir: ".",
+                            reportFiles: "kube-advisor-${params.K8S_CLUSTER}.html",
+                            reportName: "Kubeadvisor-Report"
+                    ]
+                }
+            }
+        }
