@@ -31,8 +31,32 @@ If your pipeline can run kubectl commands against the cluster successfully - you
 #### *Jenkinsfile* Sample Pipeline Steps
 
 ```scala
-...
-        stage('Get Alcide Kubernetes Advisor binary') {
+import jenkins.model.*
+import hudson.AbortException
+
+pipeline {
+    agent any
+    environment {
+    }
+
+    stages {
+        stage('Build + Test') {
+            steps {
+                echo "Build + Test your code"
+            }
+        }
+        stage('Deploy') {
+            steps {
+                script {
+                    if (currentBuild.result == 'SUCCESS')
+                        echo 'Deploying....'
+                    else
+                        echo 'Deployment skipped'
+                }
+            }
+        }
+        //Obtain the scanner
+        stage('Get Alcide kube-advisor binary') {
             steps {
                 dir("kube-advisor") {
                     sh "curl -o kube-advisor https://alcide.blob.core.windows.net/generic/stable/linux/advisor"
@@ -40,6 +64,7 @@ If your pipeline can run kubectl commands against the cluster successfully - you
                 }
             }
         }
+        //Obtain the scanner
         stage('kube-advisor Scan'){
             steps{
                 dir("kube-advisor") {
@@ -62,9 +87,10 @@ If your pipeline can run kubectl commands against the cluster successfully - you
                     ]
                 }
             }
-        }
+        }        
+    }
+}
 
-...
         
 ```
 

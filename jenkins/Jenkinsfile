@@ -1,3 +1,29 @@
+import jenkins.model.*
+import hudson.AbortException
+
+pipeline {
+    agent any
+    environment {
+        BUILD_TAG = "latest"
+    }
+
+    stages {
+        stage('Build + Test') {
+            steps {
+                echo "Build + Test your code"
+            }
+        }
+        stage('Deploy') {
+            steps {
+                script {
+                    if (currentBuild.result == 'SUCCESS')
+                        echo 'Deploying....'
+                    else
+                        echo 'Deployment skipped'
+                }
+            }
+        }
+        //Obtain the scanner
         stage('Get Alcide kube-advisor binary') {
             steps {
                 dir("kube-advisor") {
@@ -6,16 +32,17 @@
                 }
             }
         }
+        //Obtain the scanner
         stage('kube-advisor Scan'){
             steps{
                 dir("kube-advisor") {
                     sh """#!/bin/bash
                     CURRENT_CONTEXT=`kubectl config current-context`
-                    ./kube-advisor --eula-sign validate cluster --cluster-context \$CURRENT_CONTEXT --namespace-include="*" --outfile kube-advisor-${params.K8S_CLUSTER}.html
+                    ./kube-advisor --eula-sign validate cluster --cluster-context \$CURRENT_CONTEXT --namespace-include="*" --outfile kube-advisor-report.html
                 """
 
                     // Archive the built artifacts
-                    archive includes: "kube-advisor-${params.K8S_CLUSTER}.html"
+                    archive includes: "kube-advisor-report.html"
 
                     // publish html
                     publishHTML target: [
@@ -23,9 +50,11 @@
                             alwaysLinkToLastBuild: false,
                             keepAll: true,
                             reportDir: ".",
-                            reportFiles: "kube-advisor-${params.K8S_CLUSTER}.html",
+                            reportFiles: "kube-advisor-report.html",
                             reportName: "Kubeadvisor-Report"
                     ]
                 }
             }
-        }
+        }        
+    }
+}
