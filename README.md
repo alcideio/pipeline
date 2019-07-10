@@ -42,6 +42,7 @@ The App-formation feature ([requires regsitration](https://www.alcide.io/advisor
 - Jenkins
 - Azure DevOps
 - Google Cloud Build
+- CircleCI
 
 **Alcide Advisor Kubernetes Scan** which scans kubernetes cluster(s) for security & hygiene drifts.
 
