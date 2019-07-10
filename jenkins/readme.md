@@ -30,7 +30,7 @@ If your pipeline can run kubectl commands against the cluster successfully - you
 
 #### *Jenkinsfile* Sample Pipeline Steps
 
-```scala
+```Jenkinsfile
 import jenkins.model.*
 import hudson.AbortException
 
