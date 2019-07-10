@@ -1,0 +1,61 @@
+version: 2
+jobs:
+  build_and_test:
+    docker:
+      - image: buildpack-deps:trusty
+    environment:
+      - FOO: bar
+    working_directory: ~/my-app
+    steps:
+      - checkout
+      - run:
+          name: Build and Test code repo
+          command: |
+            echo "Building and Testing"
+
+  deploy_and_scan:
+    docker:
+      - image: google/cloud-sdk
+    environment:
+      - PROJECT_NAME: "my-app"
+      - GOOGLE_PROJECT_ID: "dcvisor-162009"
+      - GOOGLE_COMPUTE_ZONE: "us-east1-d"
+      - GOOGLE_CLUSTER_NAME: "demo-cluster"
+    steps:
+      - checkout
+      - run:
+          name: Setup Google Cloud SDK
+          command: |
+            apt-get install -qq -y gettext
+            echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
+            gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+            gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
+      - run: 
+          name: Deploy to Kubernetes
+          command: |
+            echo "kubectl apply -f ${HOME}/some_new_resource.yml"
+            echo "kubectl rollout status deployment/${PROJECT_NAME}"
+      - run: 
+          name: Alcide Kubernetes Advisor Cluster Scan
+          command: |
+            curl -o kube-advisor https://alcide.blob.core.windows.net/generic/stable/linux/advisor
+            chmod +x kube-advisor
+            export CURRENT_CONTEXT=`kubectl config current-context`
+            ./kube-advisor --eula-sign validate cluster --cluster-context $CURRENT_CONTEXT --namespace-include="*" --outfile /tmp/kube-advisor-report.html
+      - store_artifacts:
+          path: /tmp/kube-advisor-report.html
+          destination: alcide-advisor-scan-report.html            
+            
+workflows:
+  version: 2
+  build_test_deploy:
+    jobs:
+      - build_and_test
+      - deploy_and_scan:
+          requires:
+            - build_and_test
+          filters:
+            branches:
+              only: master
