@@ -1,4 +1,4 @@
-# CircleCI | Security Scanning Kubernetes Cluster & Workloads Hygiene
+# Travis CI | Security Scanning Kubernetes Cluster & Workloads Hygiene
 
 Alcide Advisor is an agentless Kubernetes audit, compliance and hygiene scanner that’s built to ensure a friciton free DevSecOps workflows. Alcide Advisor can be plugged early in the development process and before moving to production.
 
@@ -17,7 +17,7 @@ Alcide Advisor security checks are being added and updated on a regular basis.
 
 [VIDEO: Alcide Advisor Overview](https://youtu.be/UXNPMzCtG84)
 
-## CircleCI Integration
+## Travis CI Integration
 
 #### Prerequisites 
 
@@ -26,78 +26,59 @@ to authenticate & authorize itself to the cluster.
 
 If your pipeline can run kubectl commands against the cluster successfully - you should be ready to initiate a scan.
 
-To run against GKE, add the variable `GCLOUD_SERVICE_KEY` under *Project Settings* --> *Build Settings* --> *Environment Variables* and paste into the value the content oif GCP service account file.
+![Travis CI Settings](travisci-settings.png "Travis CI Settings")
 
+To run against GKE, add the variable `GCLOUD_SERVICE_KEY` under *My Repositories* --> *YourRepo* Choose the *More options* --> *Settings* and paste into the value (don't forget to place it with '') the content of GCP service account file.
 
+![Travis CI Example](travisci.png "Travis CI Pipeline Example")
 
-![CircleCI Example](circleci.png "Jenkins Pipeline Example")
-
-#### *CircleCI* Pipeline Example
+#### *Travis CI* Pipeline Example
 
 ```yaml
-version: 2
-jobs:
-  build_and_test:
-    docker:
-      - image: buildpack-deps:trusty
-    environment:
-      - FOO: bar
-    working_directory: ~/my-app
-    steps:
-      - checkout
-      - run:
-          name: Build and Test code repo
-          command: |
-            echo "Building and Testing"
+dist: xenial 
+sudo: required
+language: generic
+services:
+- docker
+cache:
+  directories:
+  - $HOME/google-cloud-sdk
+env:
+  global:
+  - PROJECT_NAME: "my-app"
+  - GOOGLE_PROJECT_ID: "myproj-111111"
+  - GOOGLE_COMPUTE_ZONE: "us-east1-d"
+  - GOOGLE_CLUSTER_NAME: "demo-cluster"
+  - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+before_install:
+#Install Google Cloud SDK if needed
+- if [ ! -d $HOME/google-cloud-sdk/bin ]; then
+      rm -rf $HOME/google-cloud-sdk;
+      curl https://sdk.cloud.google.com | bash;
+  fi
+- source $HOME/google-cloud-sdk/path.bash.inc
 
-  deploy_and_scan:
-    docker:
-      - image: google/cloud-sdk
-    environment:
-      - PROJECT_NAME: "my-app"
-      - GOOGLE_PROJECT_ID: "projid-11111"
-      - GOOGLE_COMPUTE_ZONE: "us-east1-d"
-      - GOOGLE_CLUSTER_NAME: "demo-cluster"
-    steps:
-      - checkout
-      - run:
-          name: Setup Google Cloud SDK
-          command: |
-            apt-get install -qq -y gettext
-            echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
-            gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
-            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
-            gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
-      - run: 
-          name: Deploy to Kubernetes
-          command: |
-            echo "kubectl apply -f ${HOME}/some_new_resource.yml"
-            echo "kubectl rollout status deployment/${PROJECT_NAME}"
-      - run: 
-          name: Alcide Kubernetes Advisor Cluster Scan
-          command: |
-            curl -o kube-advisor https://alcide.blob.core.windows.net/generic/stable/linux/advisor
-            chmod +x kube-advisor
-            export CURRENT_CONTEXT=`kubectl config current-context`
-            ./kube-advisor --eula-sign validate cluster --cluster-context $CURRENT_CONTEXT --namespace-include="*" --outfile /tmp/kube-advisor-report.html
-      - store_artifacts:
-          path: /tmp/kube-advisor-report.html
-          destination: alcide-advisor-scan-report.html            
-            
-workflows:
-  version: 2
-  build_test_deploy:
-    jobs:
-      - build_and_test
-      - deploy_and_scan:
-          requires:
-            - build_and_test
-          filters:
-            branches:
-              only: master
+#Install kubectl and helm to deploy resources/charts
+- gcloud components update kubectl
+#- curl -s https://storage.googleapis.com/kubernetes-helm/helm-v2.12.1-linux-amd64.tar.gz | sudo tar -C /usr/local/bin --strip-components 1 -zvxpf -
 
-        
+- gcloud version
+# Wire the servic account and authenticate
+- echo $GCLOUD_SERVICE_KEY > $HOME/gcloud-service-key.json
+- gcloud auth activate-service-account --key-file $HOME/gcloud-service-key.json
+
+# Get the cluster credentials
+- gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+- gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+- gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
+- echo "Deploying resource to Kubernetes ${GOOGLE_CLUSTER_NAME}"
+- echo "Scanning Kubernetes Cluster ${GOOGLE_CLUSTER_NAME}"
+- curl -o kube-advisor https://alcide.blob.core.windows.net/generic/stable/linux/advisor
+- chmod +x kube-advisor
+- export CURRENT_CONTEXT=`kubectl config current-context`
+- ./kube-advisor --eula-sign validate cluster --cluster-context $CURRENT_CONTEXT --namespace-include="*" --outfile /tmp/kube-advisor-report.html
+- echo "Publish report"
+
 ```
 
 ## Feedback and issues

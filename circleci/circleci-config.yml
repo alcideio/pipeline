@@ -18,7 +18,7 @@ jobs:
       - image: google/cloud-sdk
     environment:
       - PROJECT_NAME: "my-app"
-      - GOOGLE_PROJECT_ID: "dcvisor-162009"
+      - GOOGLE_PROJECT_ID: "someproject-111111"
       - GOOGLE_COMPUTE_ZONE: "us-east1-d"
       - GOOGLE_CLUSTER_NAME: "demo-cluster"
     steps:

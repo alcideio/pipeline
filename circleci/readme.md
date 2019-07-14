@@ -26,11 +26,11 @@ to authenticate & authorize itself to the cluster.
 
 If your pipeline can run kubectl commands against the cluster successfully - you should be ready to initiate a scan.
 
-To run against GKE, add the variable `GCLOUD_SERVICE_KEY` under *Project Settings* --> *Build Settings* --> *Environment Variables* and paste into the value the content oif GCP service account file.
+To run against GKE, add the variable `GCLOUD_SERVICE_KEY` under *Project Settings* --> *Build Settings* --> *Environment Variables* and paste into the value the content of GCP service account file.
 
 
 
-![CircleCI Example](circleci.png "Jenkins Pipeline Example")
+![CircleCI Example](circleci.png "CircleCI Pipeline Example")
 
 #### *CircleCI* Pipeline Example
 
