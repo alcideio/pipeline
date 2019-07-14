@@ -1,8 +1,8 @@
 dist: xenial
-addons:
-  artifacts: true
-    paths:
-    - /tmp/kube-advisor-report.html  
+# addons:
+#   artifacts: true
+#     paths:
+#     - /tmp/kube-advisor-report.html  
 sudo: required
 language: generic
 services:
