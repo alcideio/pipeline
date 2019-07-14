@@ -1,5 +1,6 @@
 dist: xenial
 sudo: required
+language: generic
 services:
 - docker
 cache:
