@@ -1,8 +1,4 @@
-dist: xenial
-# addons:
-#   artifacts: true
-#     paths:
-#     - /tmp/kube-advisor-report.html  
+dist: xenial 
 sudo: required
 language: generic
 services:
@@ -44,9 +40,4 @@ before_install:
 - chmod +x kube-advisor
 - export CURRENT_CONTEXT=`kubectl config current-context`
 - ./kube-advisor --eula-sign validate cluster --cluster-context $CURRENT_CONTEXT --namespace-include="*" --outfile /tmp/kube-advisor-report.html
-
-# deploy:
-#   - provider: script
-#     script: 
-#     on:
-#       branch: master
+- echo "Publish report"
