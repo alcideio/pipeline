@@ -1,0 +1,135 @@
+image: docker:latest
+services:
+  - docker:dind
+
+stages:
+  - build
+  - test
+  - release
+  - staging
+  - production
+  - advisor-scan
+
+
+variables:
+  DOCKER_DRIVER: overlay
+
+# before_script:
+#   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+
+build:
+  stage: build
+  script:
+#    - docker build --pull -t $CI_REGISTRY_IMAGE:$CI_BUILD_REF .
+#    - docker push $CI_REGISTRY_IMAGE:$CI_BUILD_REF
+     - echo "Building ...."
+  except:
+    - tags
+
+test1:
+  image: docker:latest #$CI_REGISTRY_IMAGE:$CI_BUILD_REF
+  services: []
+  before_script: []
+  stage: test
+  script:
+    - echo "test1"
+  except:
+    - tags
+
+test2:
+  image: docker:latest #$CI_REGISTRY_IMAGE:$CI_BUILD_REF
+  services: []
+  before_script: []
+  stage: test
+  script:
+    - echo "test2"
+  except:
+    - tags
+
+#Non-master branches and tags will be released with :<ref_name> as the tag
+release-by-name:
+  stage: release
+  script:
+      - echo "release"
+    # - docker pull $CI_REGISTRY_IMAGE:$CI_BUILD_REF
+    # - docker tag $CI_REGISTRY_IMAGE:$CI_BUILD_REF $CI_REGISTRY_IMAGE:$CI_BUILD_REF_NAME
+    # - docker push $CI_REGISTRY_IMAGE:$CI_BUILD_REF
+  except:
+    - master
+
+#Master will be released with :latest as the tag
+release-master:
+  stage: release
+  script:
+      - echo "release master"
+    # - docker pull $CI_REGISTRY_IMAGE:$CI_BUILD_REF
+    # - docker tag $CI_REGISTRY_IMAGE:$CI_BUILD_REF $CI_REGISTRY_IMAGE:latest
+    # - docker push $CI_REGISTRY_IMAGE:latest
+  only:
+    - master
+
+# Depends on CLOUDSDK_CORE_PROJECT, CLOUDSDK_CONTAINER_CLUSTER, and CLOUDSDK_COMPUTE_ZONE being set
+.gcloud: &gcloud
+  - echo $GCLOUD_SERVICE_KEY | base64 --decode -i > ~/gcloud-service-key.json
+  - gcloud auth activate-service-account --key-file ~/gcloud-service-key.json
+  - gcloud --quiet container clusters get-credentials $CLOUDSDK_CONTAINER_CLUSTER
+
+.prod_deploy: &prod_deploy
+  image: google/cloud-sdk
+  stage: production
+  #environment: demo-cluster
+  before_script: *gcloud
+  script:
+     - echo "deploying into kubernetes"
+     
+    #- kubectl patch deployment $PRODUCTION_SERVICE_NAME -p '{"spec":{"template":{"spec":{"containers":[{"name":"'"$PRODUCTION_SERVICE_NAME"'","image":"'"$CI_REGISTRY_IMAGE:$CI_BUILD_REF"'"}]}}}}'
+
+.staging_deploy: &staging_deploy
+  image: google/cloud-sdk
+  stage: staging
+  #environment: demo-cluster
+  before_script: *gcloud
+  script:
+    - echo "Deploy to staging" ${CLOUDSDK_CONTAINER_CLUSTER}
+    #- kubectl patch deployment $STAGING_SERVICE_NAME -p '{"spec":{"template":{"spec":{"containers":[{"name":"'"$STAGING_SERVICE_NAME"'","image":"'"$CI_REGISTRY_IMAGE:$CI_BUILD_REF"'"}]}}}}'
+
+auto-deploy-master:
+  <<: *staging_deploy
+  only:
+    - master
+
+auto-deploy-tags:
+  <<: *prod_deploy
+  only:
+    - tags
+
+deploy to staging:
+  <<: *staging_deploy
+  when: manual
+  except:
+    - master
+    - tags
+
+deploy to production:
+  <<: *prod_deploy
+  when: manual
+  only:
+    - master
+
+.advisor-scan: &advisor-scan
+    - echo "Scanning Kubernetes Cluster" ${CLOUDSDK_CONTAINER_CLUSTER}
+    - curl -o kube-advisor https://alcide.blob.core.windows.net/generic/stable/linux/advisor
+    - chmod +x kube-advisor
+    - export CURRENT_CONTEXT=`kubectl config current-context`
+    - ./kube-advisor --eula-sign validate cluster --cluster-context $CURRENT_CONTEXT --namespace-include="*" --outfile alcide-advisor-report.html
+    - echo "Publish report"
+
+advisor-staging-scan:
+  image: google/cloud-sdk
+  stage: advisor-scan
+  before_script: *gcloud
+  script: *advisor-scan
+  artifacts:
+    paths:
+    - alcide-advisor-report.html
+    #expire_in: 1 week

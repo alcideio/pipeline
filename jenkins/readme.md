@@ -1,6 +1,6 @@
 # Jenkins | Security Scanning Kubernetes Cluster & Workloads Hygiene
 
-Alcide Advisor is an agentless Kubernetes audit, compliance and hygiene scanner that’s built to ensure a friciton free DevSecOps workflows. Alcide Advisor can be plugged early in the development process and before moving to production.
+Alcide Advisor is an agentless Kubernetes audit, compliance and hygiene scanner that’s built to ensure a friction free DevSecOps workflows. Alcide Advisor can be plugged early in the development process and before moving to production.
 
 With Alcide Advisor, the security checks you can cover includes:
 
