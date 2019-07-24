@@ -63,7 +63,7 @@ export async function AdvisorRunScan() {
                 let alcideApiServer = tl.getInput('alcideApiServer', false)
 
                 if ( alcideApiServer != null && alcideApiServer != undefined && alcideApiServer != '') {
-                    advisorCli.arg([ "--alcide-api-key", alcideApiServer]);
+                    advisorCli.arg([ "--alcide-api-server", alcideApiServer]);
                 } else {
                     tl.warning("Advisor Api Server is missing ");
                 }  
