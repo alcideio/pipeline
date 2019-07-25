@@ -42,7 +42,7 @@ export async function AdvisorRunScan() {
 
         let advisorScanReportFormat = tl.getInput('advisorScanReportFormat', false)
 
-        if ( advisorScanReportFormat != null && advisorScanReportFormat != undefined && advisorScanReportFormat != '' && advisorScanReportFormat != 'html') {
+        if ( (advisorScanReportFormat != null) && (advisorScanReportFormat != undefined) && (advisorScanReportFormat != '') && (advisorScanReportFormat == 'excel')) {
             advisorCli.arg([ "--output", "excel"]);
         }        
 

@@ -42,7 +42,7 @@ function AdvisorRunScan() {
                 advisorCli.arg(["--run-mode", "pipeline"]);
             }
             let advisorScanReportFormat = tl.getInput('advisorScanReportFormat', false);
-            if (advisorScanReportFormat != null && advisorScanReportFormat != undefined && advisorScanReportFormat != '' && advisorScanReportFormat != 'html') {
+            if ((advisorScanReportFormat != null) && (advisorScanReportFormat != undefined) && (advisorScanReportFormat != '') && (advisorScanReportFormat == 'excel')) {
                 advisorCli.arg(["--output", "excel"]);
             }
             let advisorProfile = tl.getInput('advisorProfile', false);
@@ -58,7 +58,7 @@ function AdvisorRunScan() {
                     }
                     let alcideApiServer = tl.getInput('alcideApiServer', false);
                     if (alcideApiServer != null && alcideApiServer != undefined && alcideApiServer != '') {
-                        advisorCli.arg(["--alcide-api-key", alcideApiServer]);
+                        advisorCli.arg(["--alcide-api-server", alcideApiServer]);
                     }
                     else {
                         tl.warning("Advisor Api Server is missing ");
