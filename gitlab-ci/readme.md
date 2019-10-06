@@ -182,15 +182,12 @@ advisor-staging-scan:
 
 ## Feedback and issues
 
-If you have feedback or issues, please email to our [Support](mailto:support@alcide.io)
+If you have feedback or issues, submit a github issue
 
-## Start your risk-free trial now
+## Create Free-Forever Account
 
 ![Alcide Kubernetes Advisor](https://d2908q01vomqb2.cloudfront.net/77de68daecd823babbb58edb1c8e14d7106e83bb/2019/06/19/Alcide-Advisor-Amazon-EKS-1.png "Alcide Kubernetes Advisor")
 
-To get a tailor made exprience with **Alcide Kubernetes Advisor** start your risk-free [trial now](https://www.alcide.io/advisor-free-trial/)
+To unlock your **Alcide Kubernetes Advisor** create your [free-forever account](https://www.alcide.io/pricing#free-forever)
 
-Try all features free for 30 days
-100% risk free - no automatic purchase after trial ends
-
-or, [request a demo](https://get.alcide.io/request-demo)
+Enjoy all features free for up to 3 nodes, for unlimited time, or [request a demo](https://get.alcide.io/request-demo)
