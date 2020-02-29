@@ -69,7 +69,7 @@ jobs:
         helm repo add stable https://kubernetes-charts.storage.googleapis.com
         kubectl cluster-info
         kubectl create ns traefik
-        helm install stable/traefik --name traefik --namespace traefik --wait
+        helm install  --namespace traefik --wait traefik stable/traefik
 
     - name: Alcide Advisor Scan
       run: |
