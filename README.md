@@ -18,6 +18,7 @@ With Alcide Advisor, you can cover the following security checks:
 
 ## Available Integrations Examples
 
+- [Github Actions](github-actions/readme.md)
 - [Jenkins](jenkins/readme.md)
 - [Azure DevOps](azure-devops/overview.md)
 - [Google Cloud Build](google-cloudbuild/readme.md)
