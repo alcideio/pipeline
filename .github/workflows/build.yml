@@ -66,17 +66,16 @@ jobs:
 
     - name: Install Chart
       run: |
-        helm repo add ealenn https://ealenn.github.io/charts
-        helm repo update
+        helm repo add uswitch https://uswitch.github.io/kiam-helm-charts/charts/
         kubectl cluster-info
-        kubectl create ns echo
-        helm upgrade -i echo ealenn/echo-server --namespace echo --wait
+        kubectl create ns kiam
+        helm install  --namespace kiam --wait kiam uswitch/kiam
 
     - name: Alcide Advisor Scan
       run: |
         curl -o kube-advisor https://alcide.blob.core.windows.net/generic/stable/linux/advisor
         chmod +x kube-advisor
-        ./kube-advisor --eula-sign validate cluster --namespace-include="echo" --outfile alcide-advisor-security-report.html
+        ./kube-advisor --eula-sign validate cluster --namespace-include="kiam" --outfile alcide-advisor-security-report.html
 
     - name: Upload Alcide Advisor Scan Report
       uses: actions/upload-artifact@v1
