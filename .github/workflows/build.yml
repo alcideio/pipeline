@@ -66,16 +66,17 @@ jobs:
 
     - name: Install Chart
       run: |
-        helm repo add stable https://kubernetes-charts.storage.googleapis.com
+        helm repo add ealenn https://ealenn.github.io/charts
+        helm repo update
         kubectl cluster-info
-        kubectl create ns traefik
-        helm install  --namespace traefik --wait traefik stable/traefik
+        kubectl create ns echo
+        helm upgrade -i echo ealenn/echo-server --namespace echo --wait
 
     - name: Alcide Advisor Scan
       run: |
         curl -o kube-advisor https://alcide.blob.core.windows.net/generic/stable/linux/advisor
         chmod +x kube-advisor
-        ./kube-advisor --eula-sign validate cluster --namespace-include="traefik" --outfile alcide-advisor-security-report.html
+        ./kube-advisor --eula-sign validate cluster --namespace-include="echo" --outfile alcide-advisor-security-report.html
 
     - name: Upload Alcide Advisor Scan Report
       uses: actions/upload-artifact@v1
