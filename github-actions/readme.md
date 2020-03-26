@@ -108,11 +108,11 @@ jobs:
         kubectl create ns kiam
         helm install  --namespace kiam --wait kiam uswitch/kiam
 
-    - name: Alcide Advisor Scan
-      run: |
-        curl -o kube-advisor https://alcide.blob.core.windows.net/generic/stable/linux/advisor
-        chmod +x kube-advisor
-        ./kube-advisor --eula-sign validate cluster --namespace-include="kiam" --outfile alcide-advisor-security-report.html
+    - name: Alcide Advisor - Scan Cluster
+    uses: alcideio/advisor-action@v1.1.0   
+    with:
+        include_namespaces: 'kiam'
+        output_file: 'advisor-scan.html'
 
     - name: Upload Alcide Advisor Scan Report
       uses: actions/upload-artifact@v1
