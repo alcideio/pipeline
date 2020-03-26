@@ -109,8 +109,8 @@ jobs:
         helm install  --namespace kiam --wait kiam uswitch/kiam
 
     - name: Alcide Advisor - Scan Cluster
-    uses: alcideio/advisor-action@v1.1.0   
-    with:
+      uses: alcideio/advisor-action@v1.1.0   
+      with:
         include_namespaces: 'kiam'
         output_file: 'advisor-scan.html'
 
