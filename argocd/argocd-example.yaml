@@ -1,0 +1,128 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: alcide-advisor-job-argocd-security-hook
+  namespace: alcide-advisor
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: alcide-advisor-job-argocd-security-hook-exports
+  namespace: alcide-advisor
+type: Opaque
+data:
+  alcideApiKey: ""
+  slackApiToken: ""
+  awsAccessKeyId:  ""
+  awsSecretKey: ""
+
+  promPushGatewayUsername: ""
+  promPushGatewayPassword: ""
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: alcide-advisor-job-argocd-security-hook
+rules:
+  - apiGroups: ["*"]
+    resources: ["*"]
+    verbs: ["get", "list"]
+  - apiGroups: [""]
+    resources: ["nodes"]
+    verbs: ["proxy"]    
+  - apiGroups: ["authorization.k8s.io"]
+    resources: ["subjectaccessreviews"]
+    verbs: ["create"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: alcide-advisor-job-argocd-security-hook-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: alcide-advisor-job-argocd-security-hook
+subjects:
+  - kind: ServiceAccount
+    name: alcide-advisor-job-argocd-security-hook
+    namespace: alcide-advisor
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: alcide-advisor-job-argocd-security-hook
+  namespace: alcide-advisor
+  labels:
+    app.kubernetes.io/name: alcide-advisor-job
+    app.kubernetes.io/instance: argocd-security-hook
+    app.kubernetes.io/version: "2.12.0"
+  annotations:
+    alcide.io/advisor: "job"    
+    argocd.argoproj.io/sync-wave: "99"
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded    
+
+spec:
+    backoffLimit: 1
+    template:
+      spec:
+          serviceAccountName: alcide-advisor-job-argocd-security-hook
+          volumes:
+          containers:
+          - name: advisor          
+            image: alcide/advisor:stable
+            imagePullPolicy: Always
+            volumeMounts:               
+            args:
+              - --eula-sign
+              - validate
+              - cluster
+              - --inCluster
+              - --outfile
+              - /dev/null   
+
+              #           
+              # Uncomment these lines if you wish to fail the Sync operation on failure 
+              #
+              #- --run-mode
+              #- pipeline              
+
+              - --slack-api-token
+              - $(ALCIDE_ADVISOR_EXPORT_SLACK_API_TOKEN)                             
+              - --slack-channel
+              - "@someuser"
+              #
+              # Create Alcide Account to perform congure the scan policy
+              #
+              #- --profile-id
+              #- "11111111-1111-1111-aaaa-bbbbbbbbbbbb"  
+              #- --organization
+              #- "myaccount"
+              #- --alcide-api-server
+              #- "myaccount.cloud.alcide.io"
+              #- --alcide-api-key
+              #- $(ALCIDE_API_KEY)
+              #- --debug
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                - ALL
+              runAsNonRoot: true
+              runAsUser: 10001
+              readOnlyRootFilesystem: true
+            
+            env:
+              - name: ALCIDE_API_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: alcide-advisor-job-argocd-security-hook-exports
+                    key: alcideApiKey           
+              - name: ALCIDE_ADVISOR_EXPORT_SLACK_API_TOKEN
+                valueFrom:
+                  secretKeyRef:
+                    name: alcide-advisor-job-argocd-security-hook-exports
+                    key: slackApiToken
+
+          restartPolicy: Never

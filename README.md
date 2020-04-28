@@ -15,9 +15,9 @@ With Alcide Advisor, you can cover the following security checks:
 
 [VIDEO: Alcide Advisor Overview](https://youtu.be/UXNPMzCtG84)
 
-
 ## Available Integrations Examples
 
+- [Argo CD](argocd/readme.md)
 - [Github Actions](github-actions/readme.md)
 - [Jenkins](jenkins/readme.md)
 - [Azure DevOps](azure-devops/overview.md)
