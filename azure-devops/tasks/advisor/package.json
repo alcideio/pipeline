@@ -6,7 +6,7 @@
     "@types/node": "^6.0.101",
     "@types/q": "^1.5.0",
     "azure-arm-rest-v2": "file:lib/azure-arm-rest-v2-2.0.0.tgz",
-    "azure-pipelines-task-lib": "^2.8.0",
+    "azure-pipelines-task-lib": "^3.1.0",
     "docker-common-v2": "file:lib/docker-common-v2-1.0.0.tgz",
     "kubernetes-common-v2": "file:lib/kubernetes-common-v2-1.0.0.tgz",
     "moment": "2.21.0",
