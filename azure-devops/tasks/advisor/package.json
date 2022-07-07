@@ -9,7 +9,7 @@
     "azure-pipelines-task-lib": "^2.8.0",
     "docker-common-v2": "file:lib/docker-common-v2-1.0.0.tgz",
     "kubernetes-common-v2": "file:lib/kubernetes-common-v2-1.0.0.tgz",
-    "moment": "2.21.0",
+    "moment": "2.29.4",
     "utility-common-v2": "file:lib/utility-common-v2-2.0.0.tgz",
     "vss-web-extension-sdk": "^5.141.0",
     "vsts-task-tool-lib": "0.10.0"
